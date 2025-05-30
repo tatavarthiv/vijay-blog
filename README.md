@@ -152,5 +152,3 @@ The theme colors can be customized in `src/index.css`:
 [MIT License](LICENSE) © Vijay Tatavarthi
 
 ---
-
-Created by Vijay Tatavarthi - [GitHub](https://github.com/yourusername)
