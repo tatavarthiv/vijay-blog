@@ -7,22 +7,18 @@
 - **React 18+**: UI library for building the interface
 - **TypeScript**: For type-safe development
 - **Vite**: Build tool and development environment
-- **Tailwind CSS**: Utility first CSS framework
+- **CSS Modules**: For component-specific styling
 
 ### Key Libraries
 
-- **React Router**: Client-side routing
-- **React Markdown**: For rendering Markdown content
-- **gray-matter**: For parsing frontmatter in Markdown files
-- **react-helmet**: For managing document head (SEO)
-- **framer-motion** (optional): For UI animations
+- **React Router v6**: Client-side routing
+- **React Icons**: For UI icons
+- **date-fns**: Date formatting and manipulation
 
 ### Development Tools
 
 - **ESLint**: Code linting
 - **Prettier**: Code formatting
-- **Vitest** (optional): Unit testing
-- **Storybook** (optional): Component development and documentation
 
 ## Development Setup
 
@@ -39,7 +35,8 @@
 │   │   └── projects/    # Project-specific components
 │   ├── context/         # React context providers
 │   ├── data/            # Static data and content
-│   │   ├── blog/        # Markdown blog posts
+│   │   ├── blog/        # Original Markdown blog posts (not actively used)
+│   │   ├── blogPostData.ts  # Static blog post data
 │   │   └── projects/    # Project data (JSON)
 │   ├── hooks/           # Custom React hooks
 │   ├── layouts/         # Page layout components
@@ -57,23 +54,94 @@
 
 ### Component Structure
 
-Components will generally follow this pattern:
+Components follow this typical pattern:
 
 ```tsx
 // Component.tsx
 import { FC } from "react";
-import styles from "./Component.module.css";
+import { useTheme } from "../../context/themeContext";
+import { useContentService } from "../../context/contentServiceContext";
 
 interface ComponentProps {
   // Props definition
 }
 
 const Component: FC<ComponentProps> = ({ prop1, prop2 }) => {
+  const { theme } = useTheme();
+  const contentService = useContentService();
+
   // Component implementation
-  return <div className={styles.container}>{/* Component content */}</div>;
+  return <div className="component-container">{/* Component content */}</div>;
 };
 
 export default Component;
+```
+
+## Technical Implementation Details
+
+### Content Management
+
+- **Static TypeScript Data**: Blog posts are defined in a TypeScript file as an array of strongly-typed objects
+- **Content Service Abstraction**: Interface-based design separates the data source from UI components
+- **File Content Service**: Current implementation that reads from static data and JSON files
+- **Extensible Design**: Architecture supports future migration to API or database without UI changes
+
+### Theme Implementation
+
+```tsx
+// Theme context implementation
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setTheme] = useState<Theme>(() => {
+    // Check if theme is stored in localStorage
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light" || savedTheme === "dark") {
+      return savedTheme;
+    }
+
+    // If no theme stored, check system preference
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+
+    // Default to light
+    return "light";
+  });
+
+  // Theme logic implementation...
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+```
+
+### Routing Configuration
+
+```tsx
+// App.tsx routing setup
+function App() {
+  return (
+    <ThemeProvider>
+      <ContentServiceProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<MainLayout />}>
+              <Route index element={<HomePage />} />
+              <Route path="blog" element={<BlogPage />} />
+              <Route path="blog/:slug" element={<BlogPostPage />} />
+              <Route path="projects" element={<ProjectsPage />} />
+              <Route path="about" element={<AboutPage />} />
+              <Route path="newsletter" element={<div>Newsletter Signup</div>} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </Router>
+      </ContentServiceProvider>
+    </ThemeProvider>
+  );
+}
 ```
 
 ## Technical Constraints
@@ -105,11 +173,9 @@ export default Component;
 
 ### Adding Content
 
-1. Create new Markdown file in `/src/data/blog/`
-2. Add frontmatter with metadata
-3. Write content using Markdown
-4. Add any images to `/src/assets/`
-5. Build and verify locally before deployment
+1. Add new blog post to the `blogPostData.ts` file following the defined structure
+2. Add any new project data as JSON files in `/src/data/projects/`
+3. Build and verify locally before deployment
 
 ### Deployment Process
 
@@ -118,30 +184,7 @@ export default Component;
 
 ## Tool Usage Patterns
 
-### Managing Theme
-
-```tsx
-// Theme context example
-import { createContext, useState, useEffect, ReactNode } from "react";
-
-type Theme = "light" | "dark";
-
-interface ThemeContextType {
-  theme: Theme;
-  toggleTheme: () => void;
-}
-
-export const ThemeContext = createContext<ThemeContextType>({
-  theme: "light",
-  toggleTheme: () => {},
-});
-
-export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  // Implementation...
-};
-```
-
-### Content Service Abstraction
+### Content Service Pattern
 
 ```tsx
 // Content service interface
@@ -152,27 +195,22 @@ export interface ContentService {
   getProjectById(id: string): Promise<Project | null>;
 }
 
-// File-based implementation (initial)
+// File-based implementation
 export class FileContentService implements ContentService {
   async getBlogPosts(): Promise<BlogPost[]> {
-    // Load from Markdown files
-    return loadPostsFromFiles();
+    // Return static blog posts
+    return staticBlogPosts;
+  }
+
+  async getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+    const posts = await this.getBlogPosts();
+    return posts.find((post) => post.slug === slug) || null;
   }
 
   // Other implementations...
 }
 
-// Future database implementation
-export class DatabaseContentService implements ContentService {
-  async getBlogPosts(): Promise<BlogPost[]> {
-    // Load from database
-    return fetchPostsFromDatabase();
-  }
-
-  // Other implementations...
-}
-
-// Usage with dependency injection
+// Usage with React context
 const ContentServiceProvider = ({ children }: { children: ReactNode }) => {
   const contentService = new FileContentService();
 
@@ -184,28 +222,43 @@ const ContentServiceProvider = ({ children }: { children: ReactNode }) => {
 };
 ```
 
-### Rendering Markdown Content
+### Page Pattern
 
 ```tsx
-// Blog post rendering example
-import ReactMarkdown from "react-markdown";
-import { useParams } from "react-router-dom";
-import { useContentService } from "../hooks/useContentService";
-
-const BlogPost = () => {
-  const { slug } = useParams<{ slug: string }>();
+// Typical page component
+export default function BlogPage() {
   const contentService = useContentService();
-  const [post, setPost] = useState<BlogPost | null>(null);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPost = async () => {
-      const postData = await contentService.getBlogPostBySlug(slug);
-      setPost(postData);
+    const fetchPosts = async () => {
+      try {
+        const postData = await contentService.getBlogPosts();
+        setPosts(postData);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    fetchPost();
-  }, [slug, contentService]);
+    fetchPosts();
+  }, [contentService]);
 
-  // Render with the post data...
-};
+  if (loading) {
+    return <div>Loading blog posts...</div>;
+  }
+
+  return (
+    <div className="blog-page">
+      <h1>All blog posts</h1>
+      <div className="blog-list">
+        {posts.map((post) => (
+          <BlogPostCard key={post.slug} post={post} />
+        ))}
+      </div>
+    </div>
+  );
+}
 ```

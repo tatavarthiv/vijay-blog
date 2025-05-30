@@ -6,81 +6,83 @@
 graph TD
     User[User] --> App[App Component]
     App --> Router[React Router]
-    Router --> Blog[Blog Page]
-    Router --> Project[Projects Page]
-    Router --> About[About Page]
-    Router --> Newsletter[Newsletter Page]
+    App --> ThemeContext[Theme Context]
+    App --> ContentServiceContext[Content Service Context]
 
-    Blog --> PostList[Post List Component]
-    Blog --> PostDetail[Post Detail Component]
+    Router --> HomePage[Home Page]
+    Router --> BlogPage[Blog Page]
+    Router --> ProjectsPage[Projects Page]
+    Router --> AboutPage[About Page]
+    Router --> NewsletterPage[Newsletter Page]
+    Router --> BlogPostPage[Blog Post Detail Page]
 
-    PostList --> PostCard[Post Card Component]
+    BlogPage --> BlogPostList[Blog Post List]
+    BlogPostPage --> BlogPostDetail[Blog Post Detail]
 
-    Project --> ProjectList[Project List Component]
-    ProjectList --> ProjectCard[Project Card Component]
+    ProjectsPage --> ProjectList[Project List]
+    ProjectList --> ProjectCard[Project Card]
 
-    SharedComponents[Shared Components] --> Header[Header]
-    SharedComponents --> Footer[Footer]
-    SharedComponents --> ThemeToggle[Theme Toggle]
-    SharedComponents --> Pagination[Pagination]
+    MainLayout[Main Layout] --> Header[Header]
+    MainLayout[Main Layout] --> Footer[Footer]
+    MainLayout[Main Layout] --> Outlet[Page Content/Outlet]
 
-    DataLayer[Data Layer] --> ContentService[Content Service]
-    ContentService --> BlogPostLoader[Blog Post Loader]
-    ContentService --> ProjectDataLoader[Project Data Loader]
+    ContentServiceContext --> ContentService[Content Service Interface]
+    ContentService --> FileContentService[File Content Service Implementation]
 
-    BlogPostLoader --> MarkdownParser[Markdown Parser]
+    FileContentService --> BlogPostData[Static Blog Post Data]
+    FileContentService --> ProjectData[Project JSON Files]
 
-    ThemeContext[Theme Context] --> ThemeToggle
-    ThemeContext --> App
+    ThemeContext --> ThemeProvider[Theme Provider]
+    ThemeProvider --> ThemeToggle[Theme Toggle in Header]
 ```
 
 ## Key Technical Decisions
 
 ### Content Management
 
-- **Markdown-based Content**: Blog posts will be written in Markdown and stored in the repository
-- **Frontmatter for Metadata**: Each post will include frontmatter for title, date, tags, etc.
-- **Static JSON for Projects**: Project data will be stored in JSON files for simplicity
-- **Content Service Abstraction**: Data access layer to isolate content fetching logic
-- **Database Migration Path**: Design enables future switch from files to database without UI changes
+- **Static TypeScript Data**: Blog posts now stored in TypeScript files as arrays of objects
+- **JSON for Projects**: Project data stored in JSON files
+- **Content Service Abstraction**: Data access layer isolates content fetching logic
+- **Database Migration Path**: Interface-based design enables future switch to API/database
 
 ### Component Architecture
 
 - **Component-Based Design**: UI broken down into reusable, composable components
-- **Container/Presentation Pattern**: Separate data handling from UI rendering
-- **Context API for Global State**: Theme preferences and potentially other global states
+- **Container/Presentation Pattern**: Separation of data handling from UI rendering
+- **Context API for Global State**: Theme preferences and content service abstraction
 
 ### Routing
 
-- **Client-Side Routing**: Using React Router for navigation without page reloads
+- **Client-Side Routing**: React Router v6 for navigation without page reloads
+- **Nested Routes with Outlet**: All routes use MainLayout as parent
 - **Path-Based Routes**: Clean URL structure (/blog, /projects, /about, etc.)
 - **Dynamic Routes**: Support for dynamic paths like /blog/:slug for individual posts
 
 ### Performance Considerations
 
-- **Code Splitting**: Lazy loading components to reduce initial bundle size
-- **Image Optimization**: Properly sized and compressed images for posts
-- **Memoization**: Strategic use of React.memo and useMemo for expensive operations
+- **Component Memoization**: React.memo and useMemo used for expensive operations
+- **Lazy Loading**: Pages load only when navigated to
+- **Responsive Design**: Efficient styling for all devices
 
 ## Design Patterns in Use
 
 ### Component Patterns
 
-- **Compound Components**: For related component groups
-- **Render Props/Hooks**: For shared component logic
-- **Higher-Order Components**: Where appropriate for cross-cutting concerns
+- **Compound Components**: Related component groups working together
+- **Custom Hooks**: For encapsulated logic like useTheme and useContentService
+- **Context Providers**: For global state management
 
 ### State Management
 
-- **Context + Reducers**: For more complex state (if needed)
+- **Context + State Hooks**: For theme and content service management
 - **Local Component State**: For component-specific UI state
 - **Custom Hooks**: To encapsulate and reuse state logic
 
 ### Data Flow
 
 - **Unidirectional Data Flow**: Parent-to-child props passing
-- **Events Up, Data Down**: Child components emit events, parents pass data
-- **Async Data Handling**: Loading states and error boundaries for data fetching
+- **Context for Global State**: Theme and content service provided globally
+- **Async Data Handling**: Loading states for data fetching operations
 
 ## Critical Implementation Paths
 
@@ -88,11 +90,12 @@ graph TD
 
 ```mermaid
 sequenceDiagram
-    User->>ThemeToggle: Clicks toggle
-    ThemeToggle->>ThemeContext: Updates theme preference
-    ThemeContext->>LocalStorage: Stores preference
-    ThemeContext->>App: Re-renders with new theme
-    App->>Components: Propagate theme changes
+    User->>Header: Clicks theme toggle button
+    Header->>ThemeContext: Calls toggleTheme()
+    ThemeContext->>localStorage: Stores preference
+    ThemeContext->>App: Updates theme state
+    App->>DOM: Applies data-theme attribute
+    DOM->>CSS: Applies theme-specific styles
 ```
 
 ### Content Rendering
@@ -100,22 +103,21 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     User->>Router: Navigates to blog post
-    Router->>PostDetail: Renders component
-    PostDetail->>BlogPostLoader: Requests post data
-    BlogPostLoader->>MarkdownParser: Parses markdown content
-    MarkdownParser->>PostDetail: Returns HTML content
-    PostDetail->>User: Displays formatted post
+    Router->>BlogPostPage: Renders component with slug param
+    BlogPostPage->>ContentService: Calls getBlogPostBySlug(slug)
+    ContentService->>BlogPostData: Retrieves from static data
+    BlogPostData->>BlogPostPage: Returns post data
+    BlogPostPage->>User: Displays formatted post
 ```
 
-### Pagination
+### Page Navigation
 
 ```mermaid
 sequenceDiagram
-    User->>PostList: Views blog list
-    PostList->>DataLayer: Requests posts for current page
-    DataLayer->>PostList: Returns paginated posts
-    PostList->>PostCard: Renders multiple cards
-    User->>Pagination: Clicks next page
-    Pagination->>PostList: Updates current page
-    PostList->>DataLayer: Requests new page data
+    User->>Header: Clicks navigation link
+    Header->>Router: Navigates to new route
+    Router->>MainLayout: Maintains layout
+    MainLayout->>Outlet: Updates content area
+    Router->>PageComponent: Renders new page
+    PageComponent->>User: Displays page content
 ```

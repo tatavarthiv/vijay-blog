@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "../../context/themeContext";
+import { FiSun, FiMoon } from "react-icons/fi";
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
@@ -20,16 +21,21 @@ export default function Header() {
           </div>
 
           <nav className="main-nav">
-            <ul>
+            <ul className="nav-links">
               <li>
-                <Link to="/blog" className={isActive("/blog") ? "active" : ""}>
+                <Link
+                  to="/blog"
+                  className={`nav-link ${isActive("/blog") ? "active" : ""}`}
+                >
                   Blog
                 </Link>
               </li>
               <li>
                 <Link
                   to="/projects"
-                  className={isActive("/projects") ? "active" : ""}
+                  className={`nav-link ${
+                    isActive("/projects") ? "active" : ""
+                  }`}
                 >
                   Projects
                 </Link>
@@ -37,16 +43,17 @@ export default function Header() {
               <li>
                 <Link
                   to="/about"
-                  className={isActive("/about") ? "active" : ""}
+                  className={`nav-link ${isActive("/about") ? "active" : ""}`}
                 >
                   About
                 </Link>
               </li>
               <li>
-                {/* Newsletter link could open a modal or go to a separate page */}
                 <Link
                   to="/newsletter"
-                  className={isActive("/newsletter") ? "active" : ""}
+                  className={`nav-link ${
+                    isActive("/newsletter") ? "active" : ""
+                  }`}
                 >
                   Newsletter
                 </Link>
@@ -54,13 +61,17 @@ export default function Header() {
             </ul>
           </nav>
 
-          <button
-            className="theme-toggle"
-            onClick={toggleTheme}
-            title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-          >
-            {theme === "light" ? "🌙" : "☀️"}
-          </button>
+          <div className="theme-toggle-container">
+            <button
+              className="theme-toggle"
+              onClick={toggleTheme}
+              title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+              aria-label="Toggle theme"
+            >
+              <FiSun size={20} className="sun-icon" />
+              <FiMoon size={20} className="moon-icon" />
+            </button>
+          </div>
         </div>
       </div>
     </header>

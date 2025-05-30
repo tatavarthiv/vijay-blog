@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import type { BlogPost } from "../types/content";
 import { useContentService } from "../context/contentServiceContext";
+import { formatDate } from "../utils/dateUtils";
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -44,16 +45,22 @@ export default function BlogPostPage() {
     return null;
   }
 
+  // Get tag CSS class from tag name
+  const getTagClass = (tag: string) => {
+    return `tag tag-${tag.toLowerCase().replace(/\s+/g, "-")}`;
+  };
+
   return (
-    <article className="blog-post">
+    <div className="blog-post">
+      <h1 className="blog-title">{post.title}</h1>
+
       <header className="post-header">
-        <h1>{post.title}</h1>
         <div className="post-meta">
-          <time dateTime={post.date}>{post.date}</time>
+          <span className="post-date">{formatDate(post.date)}</span>
           {post.tags && post.tags.length > 0 && (
             <div className="post-tags">
               {post.tags.map((tag) => (
-                <span key={tag} className="tag">
+                <span key={tag} className={getTagClass(tag)}>
                   {tag}
                 </span>
               ))}
@@ -71,6 +78,6 @@ export default function BlogPostPage() {
       <div className="post-content">
         <ReactMarkdown>{post.content}</ReactMarkdown>
       </div>
-    </article>
+    </div>
   );
 }

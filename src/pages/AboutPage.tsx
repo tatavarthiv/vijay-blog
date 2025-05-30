@@ -3,7 +3,7 @@ import React from "react";
 export default function AboutPage() {
   return (
     <div className="about-page">
-      <h1>About Me</h1>
+      <h1 className="main-title">ABOUT</h1>
 
       <section className="about-section">
         <p>
