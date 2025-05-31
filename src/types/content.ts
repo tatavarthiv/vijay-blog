@@ -11,7 +11,9 @@ export interface BlogPost {
 export interface Project {
   id: string;
   title: string;
+  slug: string;
   description: string;
+  content: string;
   tags?: string[];
   imageUrl?: string;
   links?: {
