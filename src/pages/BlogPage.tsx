@@ -45,36 +45,24 @@ export default function BlogPage() {
       ) : posts.length > 0 ? (
         <>
           <section className="recent-posts-section">
-            <h2>Recent blog posts</h2>
+            <h2 className="section-title">Recent blog posts</h2>
             <div className="recent-posts-grid">
-              {recentPosts.map((post, index) => {
-                const postClasses = [
-                  "recent-post-card",
-                  index === 0 ? "recent-post-main" : "",
-                  index === 1 || index === 2 ? "recent-post-secondary" : "",
-                  index === 3 ? "recent-post-fourth" : "",
-                ]
-                  .filter(Boolean)
-                  .join(" ");
-
-                return (
-                  <ContentCard
-                    key={post.slug}
-                    title={post.title}
-                    date={formatDate(post.date)}
-                    image={post.coverImage}
-                    excerpt={post.excerpt}
-                    tags={post.tags}
-                    slug={post.slug}
-                    className={postClasses}
-                  />
-                );
-              })}
+              {recentPosts.map((post) => (
+                <ContentCard
+                  key={post.slug}
+                  title={post.title}
+                  date={formatDate(post.date)}
+                  image={post.coverImage}
+                  excerpt={post.excerpt}
+                  tags={post.tags}
+                  slug={post.slug}
+                />
+              ))}
             </div>
           </section>
 
           <section className="all-posts-section">
-            <h2>All blog posts</h2>
+            <h2 className="section-title">All blog posts</h2>
             <div className="all-posts-grid">
               {paginatedPosts.map((post) => (
                 <ContentCard
@@ -85,7 +73,6 @@ export default function BlogPage() {
                   excerpt={post.excerpt}
                   tags={post.tags}
                   slug={post.slug}
-                  className="blog-post-card"
                 />
               ))}
             </div>

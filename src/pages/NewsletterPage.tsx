@@ -26,61 +26,24 @@ export default function NewsletterPage() {
 
       {/* Newsletter subscription section */}
       <section className="newsletter-section">
-        <div
-          className="newsletter-content"
-          style={{ maxWidth: "800px", margin: "0 auto" }}
-        >
-          <p
-            style={{
-              fontSize: "1.2rem",
-              marginBottom: "2rem",
-              textAlign: "center",
-            }}
-          >
+        <div className="newsletter-content">
+          <p>
             Subscribe to my newsletter to receive updates on new articles,
             projects, and insights about web development, design patterns, and
             emerging technologies. Stay informed about the latest trends and
             best practices.
           </p>
 
-          <form
-            onSubmit={handleSubmit}
-            style={{
-              display: "flex",
-              gap: "1rem",
-              justifyContent: "center",
-              marginBottom: "3rem",
-            }}
-          >
+          <form onSubmit={handleSubmit} className="newsletter-form">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
-              style={{
-                padding: "0.75rem 1rem",
-                borderRadius: "4px",
-                border: "1px solid var(--border-color)",
-                width: "300px",
-                fontSize: "1rem",
-                backgroundColor: "var(--bg-secondary)",
-                color: "var(--text-primary)",
-              }}
+              className="newsletter-input"
             />
-            <button
-              type="submit"
-              style={{
-                backgroundColor: "var(--accent-color)",
-                color: "white",
-                border: "none",
-                borderRadius: "4px",
-                padding: "0.75rem 1.5rem",
-                cursor: "pointer",
-                fontWeight: "bold",
-                fontSize: "1rem",
-              }}
-            >
+            <button type="submit" className="newsletter-button">
               Subscribe
             </button>
           </form>
@@ -89,7 +52,7 @@ export default function NewsletterPage() {
 
       {/* Recent blog posts section */}
       <section className="recent-posts-section">
-        <h2>Recent Articles</h2>
+        <h2 className="section-title">Recent Articles</h2>
         <div className="newsletter-recent-grid">
           {recentPosts.map((post) => (
             <ContentCard
