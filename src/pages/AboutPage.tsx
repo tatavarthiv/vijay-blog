@@ -6,26 +6,13 @@ export default function AboutPage() {
       <h1 className="main-title">VIJAY TATAVARTHI</h1>
 
       {/* Top section with headshot on left, about me on right */}
-      <div
-        className="about-intro"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "3rem",
-          marginBottom: "3rem",
-        }}
-      >
+      <section className="about-intro-grid">
         {/* Left column - headshot */}
         <div className="headshot-container">
           <img
             src={headshot}
             alt="Vijay Tatavarthi"
             className="headshot-image"
-            style={{
-              width: "100%",
-              borderRadius: "8px",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            }}
           />
         </div>
 
@@ -42,7 +29,7 @@ export default function AboutPage() {
             accessible, and performant applications using modern technologies.
           </p>
         </div>
-      </div>
+      </section>
 
       {/* Skills section with tags in rows */}
       <section className="skills-section">

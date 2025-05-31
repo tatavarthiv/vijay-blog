@@ -89,16 +89,8 @@ export default function NewsletterPage() {
 
       {/* Recent blog posts section */}
       <section className="recent-posts-section">
-        <h2 style={{ marginBottom: "2rem" }}>Recent Articles</h2>
-        <div
-          className="recent-posts-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "2rem",
-            marginBottom: "3rem",
-          }}
-        >
+        <h2>Recent Articles</h2>
+        <div className="newsletter-recent-grid">
           {recentPosts.map((post) => (
             <ContentCard
               key={post.slug}
