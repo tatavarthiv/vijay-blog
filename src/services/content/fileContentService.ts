@@ -25,6 +25,11 @@ export class FileContentService implements ContentService {
     return projects.find((project) => project.id === id) || null;
   }
 
+  async getProjectBySlug(slug: string): Promise<Project | null> {
+    const projects = await this.getProjects();
+    return projects.find((project) => project.slug === slug) || null;
+  }
+
   // Helper method to generate slug from file path
   private slugFromPath(path: string): string {
     const filename = path.split("/").pop() || "";

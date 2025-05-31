@@ -56,7 +56,7 @@ export default function BlogPostPage() {
 
       <header className="post-header">
         <div className="post-meta">
-          <span className="post-date">{formatDate(post.date)}</span>
+          <div className="post-date">{formatDate(post.date)}</div>
           {post.tags && post.tags.length > 0 && (
             <div className="post-tags">
               {post.tags.map((tag) => (

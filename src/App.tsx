@@ -6,7 +6,9 @@ import HomePage from "./pages/HomePage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
 import ProjectsPage from "./pages/ProjectsPage";
+import ProjectPostPage from "./pages/ProjectPostPage";
 import AboutPage from "./pages/AboutPage";
+import NewsletterPage from "./pages/NewsletterPage";
 
 function App() {
   return (
@@ -19,10 +21,11 @@ function App() {
               <Route path="blog" element={<BlogPage />} />
               <Route path="blog/:slug" element={<BlogPostPage />} />
               <Route path="projects" element={<ProjectsPage />} />
+              <Route path="projects/:slug" element={<ProjectPostPage />} />
               <Route path="about" element={<AboutPage />} />
 
-              {/* Newsletter route - placeholder for now */}
-              <Route path="newsletter" element={<div>Newsletter Signup</div>} />
+              {/* Newsletter route */}
+              <Route path="newsletter" element={<NewsletterPage />} />
 
               {/* 404 page */}
               <Route

@@ -5,4 +5,5 @@ export interface ContentService {
   getBlogPostBySlug(slug: string): Promise<BlogPost | null>;
   getProjects(): Promise<Project[]>;
   getProjectById(id: string): Promise<Project | null>;
+  getProjectBySlug(slug: string): Promise<Project | null>;
 }

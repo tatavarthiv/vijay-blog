@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import type { BlogPost } from "../types/content";
 import { useContentService } from "../context/contentServiceContext";
 import { formatDate } from "../utils/dateUtils";
 import ContentCard from "../components/common/ContentCard";
-import { FiArrowRight } from "react-icons/fi";
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -38,11 +36,6 @@ export default function BlogPage() {
     startIndex + postsPerPage
   );
 
-  // Get tag CSS class from tag name
-  const getTagClass = (tag: string) => {
-    return `tag tag-${tag.toLowerCase().replace(/\s+/g, "-")}`;
-  };
-
   return (
     <div className="blog-page">
       <h1 className="main-title">THE BLOG</h1>
@@ -73,7 +66,6 @@ export default function BlogPage() {
                     excerpt={post.excerpt}
                     tags={post.tags}
                     slug={post.slug}
-                    showArrow={index === 0 || index === 3}
                     className={postClasses}
                   />
                 );

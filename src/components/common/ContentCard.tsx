@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { FiArrowRight } from "react-icons/fi";
 
 type ContentCardProps = {
   title: string;
@@ -8,12 +7,7 @@ type ContentCardProps = {
   excerpt?: string;
   tags?: string[];
   slug?: string;
-  links?: {
-    github?: string;
-    demo?: string;
-  };
   className?: string;
-  showArrow?: boolean;
   linkPrefix?: string; // e.g., "/blog/" or "/projects/"
 };
 
@@ -24,9 +18,7 @@ export default function ContentCard({
   excerpt,
   tags,
   slug,
-  links,
   className = "",
-  showArrow = false,
   linkPrefix = "/blog/",
 }: ContentCardProps) {
   // Tag class handling
@@ -34,21 +26,13 @@ export default function ContentCard({
     return `tag tag-${tag.toLowerCase().replace(/\s+/g, "-")}`;
   };
 
-  return (
-    <article className={`content-card ${className}`}>
+  const cardContent = (
+    <>
       {image && <img src={image} alt={title} />}
 
       <div className="content-card-content">
         {date && <span className="post-date">{date}</span>}
-
-        {slug ? (
-          <Link to={`${linkPrefix}${slug}`}>
-            <h3 className="content-card-title">{title}</h3>
-          </Link>
-        ) : (
-          <h3 className="content-card-title">{title}</h3>
-        )}
-
+        <h3 className="content-card-title">{title}</h3>
         {excerpt && <p className="content-card-excerpt">{excerpt}</p>}
 
         {tags && tags.length > 0 && (
@@ -60,37 +44,18 @@ export default function ContentCard({
             ))}
           </div>
         )}
-
-        {links && (
-          <div className="card-links">
-            {links.github && (
-              <a
-                href={links.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-github"
-              >
-                GitHub
-              </a>
-            )}
-            {links.demo && (
-              <a
-                href={links.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-demo"
-              >
-                Live Demo
-              </a>
-            )}
-          </div>
-        )}
       </div>
+    </>
+  );
 
-      {showArrow && slug && (
-        <Link to={`${linkPrefix}${slug}`} className="read-more-link">
-          <FiArrowRight size={20} className="arrow-icon" />
+  return (
+    <article className={`content-card ${className}`}>
+      {slug ? (
+        <Link to={`${linkPrefix}${slug}`} className="content-card-link">
+          {cardContent}
         </Link>
+      ) : (
+        cardContent
       )}
     </article>
   );

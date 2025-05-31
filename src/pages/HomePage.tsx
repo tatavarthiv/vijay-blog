@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import type { BlogPost } from "../types/content";
 import { useContentService } from "../context/contentServiceContext";
 import { formatDate } from "../utils/dateUtils";
-import { FiArrowRight } from "react-icons/fi";
+import ContentCard from "../components/common/ContentCard";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -24,11 +23,6 @@ export default function HomePage() {
 
     fetchPosts();
   }, [contentService]);
-
-  // Get tag CSS class from tag name
-  const getTagClass = (tag: string) => {
-    return `tag tag-${tag.toLowerCase().replace(/\s+/g, "-")}`;
-  };
 
   // Get only the first 4 posts for the recent posts section
   const recentPosts = posts.slice(0, 4);
@@ -54,34 +48,16 @@ export default function HomePage() {
                 .join(" ");
 
               return (
-                <article key={post.slug} className={postClasses}>
-                  {post.coverImage && (
-                    <img src={post.coverImage} alt={post.title} />
-                  )}
-                  <div className="recent-post-content">
-                    <span className="post-date">{formatDate(post.date)}</span>
-                    <Link to={`/blog/${post.slug}`}>
-                      <h3 className="recent-post-title">{post.title}</h3>
-                    </Link>
-                    {post.excerpt && (
-                      <p className="recent-post-excerpt">{post.excerpt}</p>
-                    )}
-                    {post.tags && post.tags.length > 0 && (
-                      <div className="post-tags">
-                        {post.tags.map((tag) => (
-                          <span key={tag} className={getTagClass(tag)}>
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  {index === 0 || index === 3 ? (
-                    <Link to={`/blog/${post.slug}`} className="read-more-link">
-                      <FiArrowRight size={20} className="arrow-icon" />
-                    </Link>
-                  ) : null}
-                </article>
+                <ContentCard
+                  key={post.slug}
+                  title={post.title}
+                  date={formatDate(post.date)}
+                  image={post.coverImage}
+                  excerpt={post.excerpt}
+                  tags={post.tags}
+                  slug={post.slug}
+                  className={postClasses}
+                />
               );
             })}
           </div>

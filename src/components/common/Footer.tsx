@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -13,15 +11,6 @@ export default function Footer() {
 
           <div className="footer-links">
             <ul>
-              <li>
-                <a
-                  href="https://twitter.com/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Twitter
-                </a>
-              </li>
               <li>
                 <a
                   href="https://github.com/tatavarthiv"
