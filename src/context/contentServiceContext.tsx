@@ -1,15 +1,15 @@
 import { createContext, useContext } from "react";
 import type { ReactNode } from "react";
 import type { ContentService } from "../services/content/contentService";
-import { FileContentService } from "../services/content/fileContentService";
+import { SupabaseContentService } from "../services/content/supabaseContentService";
 
 // Create a context with a null default value
 const ContentServiceContext = createContext<ContentService | null>(null);
 
 // Provider component that will wrap the application
 export function ContentServiceProvider({ children }: { children: ReactNode }) {
-  // Create an instance of the file-based content service
-  const contentService = new FileContentService();
+  // Create an instance of the Supabase-based content service
+  const contentService = new SupabaseContentService();
 
   return (
     <ContentServiceContext.Provider value={contentService}>

@@ -153,8 +153,7 @@ img {
   font-size: clamp(1rem, 4vw, 1.5rem);
   font-weight: 600;
   position: relative;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.2rem;
 }
 
 /* =================================================================
@@ -273,6 +272,7 @@ img {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  padding-left: 0;
 }
 
 .mobile-nav-link {
