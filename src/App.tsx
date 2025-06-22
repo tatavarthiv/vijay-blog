@@ -7,7 +7,6 @@ import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectPostPage from "./pages/ProjectPostPage";
-import NewsletterPage from "./pages/NewsletterPage";
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
               <Route path="blog/:slug" element={<BlogPostPage />} />
               <Route path="projects" element={<ProjectsPage />} />
               <Route path="projects/:slug" element={<ProjectPostPage />} />
-              <Route path="newsletter" element={<NewsletterPage />} />
 
               {/* 404 page */}
               <Route
