@@ -54,14 +54,6 @@ export default function Header() {
                 </li>
                 <li>
                   <Link
-                    to="/about"
-                    className={`nav-link ${isActive("/about") ? "active" : ""}`}
-                  >
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link
                     to="/newsletter"
                     className={`nav-link ${
                       isActive("/newsletter") ? "active" : ""
@@ -134,17 +126,6 @@ export default function Header() {
                     onClick={closeMobileMenu}
                   >
                     Projects
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/about"
-                    className={`mobile-nav-link ${
-                      isActive("/about") ? "active" : ""
-                    }`}
-                    onClick={closeMobileMenu}
-                  >
-                    About
                   </Link>
                 </li>
                 <li>

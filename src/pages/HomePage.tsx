@@ -1,58 +1,158 @@
-import { useEffect, useState } from "react";
-import type { BlogPost } from "../types/content";
-import { useContentService } from "../context/contentServiceContext";
-import { formatDate } from "../utils/dateUtils";
-import ContentCard from "../components/common/ContentCard";
+import headshot from "../assets/headshot.JPG?url";
 
 export default function HomePage() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const contentService = useContentService();
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const fetchedPosts = await contentService.getBlogPosts();
-        setPosts(fetchedPosts);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, [contentService]);
-
-  // Get only the first 4 posts for the recent posts section
-  const recentPosts = posts.slice(0, 4);
-
   return (
-    <div className="home-page">
-      <h1 className="main-title">THE BLOG</h1>
+    <div className="home-page container">
+      <h1 className="main-title">VIJAY TATAVARTHI</h1>
 
-      {loading ? (
-        <p>Loading posts...</p>
-      ) : posts.length > 0 ? (
-        <section className="recent-posts-section">
-          <h2 className="section-title">Recent blog posts</h2>
-          <div className="recent-posts-grid">
-            {recentPosts.map((post) => (
-              <ContentCard
-                key={post.slug}
-                title={post.title}
-                date={formatDate(post.date)}
-                image={post.coverImage}
-                excerpt={post.excerpt}
-                tags={post.tags}
-                slug={post.slug}
-              />
-            ))}
-          </div>
-        </section>
-      ) : (
-        <p>No posts found.</p>
-      )}
+      {/* Top section with headshot on left, about me on right */}
+      <section className="about-intro-grid">
+        {/* Left column - headshot */}
+        <div className="headshot-container">
+          <img
+            src={headshot}
+            alt="Vijay Tatavarthi"
+            className="headshot-image"
+          />
+        </div>
+
+        {/* Right column - about me */}
+        <div className="about-content">
+          <h2>About Me</h2>
+          <p>
+            Welcome to my personal blog where I share my thoughts, projects, and
+            technical content. I'm passionate about technology and love to
+            explore new ideas and share what I learn along the way.
+          </p>
+          <p>
+            I specialize in web development with a focus on creating responsive,
+            accessible, and performant applications using modern technologies.
+          </p>
+        </div>
+      </section>
+
+      {/* Skills section with tags in rows */}
+      <section className="skills-section">
+        <h2>Skills</h2>
+        <div
+          className="skills-tags"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "1rem",
+            marginTop: "1.5rem",
+          }}
+        >
+          {/* Frontend Skills */}
+          <span className="tag tag-react">React</span>
+          <span className="tag tag-typescript">TypeScript</span>
+          <span className="tag tag-javascript">JavaScript</span>
+          <span className="tag tag-frontend">HTML/CSS</span>
+
+          {/* Backend Skills */}
+          <span className="tag tag-frameworks">Node.js</span>
+          <span className="tag tag-frameworks">Express</span>
+          <span className="tag tag-tools">APIs</span>
+          <span className="tag tag-software-development">Databases</span>
+
+          {/* Other Skills */}
+          <span className="tag tag-tools">Git</span>
+          <span className="tag tag-best-practices">CI/CD</span>
+          <span className="tag tag-best-practices">Testing</span>
+          <span className="tag tag-software-development">Performance</span>
+        </div>
+      </section>
+
+      {/* Experience section */}
+      <section className="experience-section" style={{ marginTop: "3rem" }}>
+        <h2>Experience</h2>
+
+        <div className="experience-item" style={{ marginTop: "1.5rem" }}>
+          <h3>Senior Frontend Developer</h3>
+          <p style={{ color: "var(--text-secondary)", marginBottom: "0.5rem" }}>
+            Tech Company Inc. | 2020 - Present
+          </p>
+          <ul>
+            <li>
+              Led the development of responsive web applications using React and
+              TypeScript
+            </li>
+            <li>
+              Implemented performance optimizations resulting in a 30% increase
+              in page load speed
+            </li>
+            <li>
+              Collaborated with UX designers to create accessible user
+              interfaces
+            </li>
+          </ul>
+        </div>
+
+        <div className="experience-item" style={{ marginTop: "1.5rem" }}>
+          <h3>Web Developer</h3>
+          <p style={{ color: "var(--text-secondary)", marginBottom: "0.5rem" }}>
+            Digital Solutions LLC | 2017 - 2020
+          </p>
+          <ul>
+            <li>
+              Developed and maintained client websites using JavaScript and
+              modern frameworks
+            </li>
+            <li>Built RESTful APIs using Node.js and Express</li>
+            <li>
+              Implemented automated testing strategies to improve code quality
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Education section */}
+      <section className="education-section" style={{ marginTop: "3rem" }}>
+        <h2>Education</h2>
+
+        <div className="education-item" style={{ marginTop: "1.5rem" }}>
+          <h3>Master's in Computer Science</h3>
+          <p style={{ color: "var(--text-secondary)", marginBottom: "0.5rem" }}>
+            University of Technology | 2015 - 2017
+          </p>
+          <p>Specialized in Web Technologies and Software Engineering</p>
+        </div>
+
+        <div className="education-item" style={{ marginTop: "1.5rem" }}>
+          <h3>Bachelor's in Software Engineering</h3>
+          <p style={{ color: "var(--text-secondary)", marginBottom: "0.5rem" }}>
+            State University | 2011 - 2015
+          </p>
+          <p>Graduated with honors, Dean's list</p>
+        </div>
+      </section>
+
+      {/* Contact section */}
+      <section className="contact-section" style={{ marginTop: "3rem" }}>
+        <h2>Contact</h2>
+        <p>
+          Feel free to reach out to me for collaborations, questions, or just to
+          say hello!
+        </p>
+        <div className="contact-links">
+          {/* Replace with your actual contact information */}
+          <a href="mailto:your.email@example.com">Email</a>
+          <a
+            href="https://github.com/tatavarthiv"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://linkedin.com/in/vijay-tatavarthi"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+        </div>
+      </section>
     </div>
   );
 }
