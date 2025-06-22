@@ -1,16 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
-import { blogPosts } from "../data/blogPostData";
 import { format } from "date-fns";
 import ContentCard from "../components/common/ContentCard";
+import { useContentService } from "../context/contentServiceContext";
+import type { BlogPost } from "../types/content";
 
 export default function NewsletterPage() {
   const [email, setEmail] = useState("");
+  const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const contentService = useContentService();
 
-  // Get the 3 most recent blog posts
-  const recentPosts = [...blogPosts]
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 3);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const fetchedPosts = await contentService.getBlogPosts();
+        setRecentPosts(fetchedPosts.slice(0, 3));
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, [contentService]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -53,19 +67,23 @@ export default function NewsletterPage() {
       {/* Recent blog posts section */}
       <section className="recent-posts-section">
         <h2 className="section-title">Recent Articles</h2>
-        <div className="newsletter-recent-grid">
-          {recentPosts.map((post) => (
-            <ContentCard
-              key={post.slug}
-              title={post.title}
-              date={format(new Date(post.date), "MMMM d, yyyy")}
-              image={post.coverImage}
-              excerpt={post.excerpt}
-              tags={post.tags}
-              slug={post.slug}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <p>Loading recent articles...</p>
+        ) : (
+          <div className="newsletter-recent-grid">
+            {recentPosts.map((post) => (
+              <ContentCard
+                key={post.slug}
+                title={post.title}
+                date={format(new Date(post.date), "MMMM dd, yyyy")}
+                image={post.coverImage}
+                excerpt={post.excerpt}
+                tags={post.tags}
+                slug={post.slug}
+              />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
