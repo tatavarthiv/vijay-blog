@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import type { BlogPost } from "../types/content";
 import { useContentService } from "../context/contentServiceContext";
@@ -9,6 +9,7 @@ export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [post, setPost] = useState<BlogPost | null>(null);
+  const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const contentService = useContentService();
 
@@ -20,12 +21,19 @@ export default function BlogPostPage() {
       }
 
       try {
-        const fetchedPost = await contentService.getBlogPostBySlug(slug);
+        const [fetchedPost, allPosts] = await Promise.all([
+          contentService.getBlogPostBySlug(slug),
+          contentService.getBlogPosts(),
+        ]);
+
         if (!fetchedPost) {
           navigate("/blog");
           return;
         }
+
         setPost(fetchedPost);
+        // Get 10 most recent posts excluding the current one
+        setRecentPosts(allPosts.filter((p) => p.slug !== slug).slice(0, 10));
       } catch (error) {
         console.error("Error fetching post:", error);
         navigate("/blog");
@@ -46,23 +54,44 @@ export default function BlogPostPage() {
   }
 
   return (
-    <div className="blog-post">
-      <h1 className="blog-title">{post.title}</h1>
+    <div className="post-layout">
+      <div className="post-main">
+        <h1 className="post-title">{post.title}</h1>
+        <div className="post-date">{formatDate(post.date)}</div>
 
-      <header className="post-header">
-        <div className="post-meta">
-          <div className="post-date">{formatDate(post.date)}</div>
+        {post.excerpt && <div className="post-excerpt">{post.excerpt}</div>}
+
+        {post.coverImage && (
+          <div className="post-cover">
+            <img src={post.coverImage} alt={post.title} />
+          </div>
+        )}
+
+        <div className="post-content">
+          <ReactMarkdown>
+            {post.content.replace(/^#\s+.*$/m, "").trim()}
+          </ReactMarkdown>
         </div>
-      </header>
+      </div>
 
-      {post.coverImage && (
-        <div className="post-cover">
-          <img src={post.coverImage} alt={post.title} />
+      <div className="post-sidebar">
+        <div className="further-reading">
+          <h3>Further Reading</h3>
+          <div className="recent-posts">
+            {recentPosts.map((recentPost) => (
+              <Link
+                key={recentPost.slug}
+                to={`/blog/${recentPost.slug}`}
+                className="recent-post-link"
+              >
+                <div className="recent-post-date">
+                  {formatDate(recentPost.date)}
+                </div>
+                <div className="recent-post-title">{recentPost.title}</div>
+              </Link>
+            ))}
+          </div>
         </div>
-      )}
-
-      <div className="post-content">
-        <ReactMarkdown>{post.content}</ReactMarkdown>
       </div>
     </div>
   );
