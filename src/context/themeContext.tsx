@@ -19,12 +19,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
 
     // If no theme stored, check system preference
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
+    if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+      return "light";
     }
 
-    // Default to light
-    return "light";
+    // Default to dark
+    return "dark";
   });
 
   // Watch for system preference changes

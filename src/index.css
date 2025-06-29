@@ -8,16 +8,16 @@
   line-height: 1.6;
   font-weight: 400;
 
-  /* Light mode colors */
-  --bg-primary: #ffffff;
-  --text-primary: #333333;
-  --text-secondary: #555555;
+  /* Light mode colors - Warm, cozy palette */
+  --bg-primary: #f9f7f4;
+  --text-primary: #2d251f;
+  --text-secondary: #4a3f35;
   --accent-color: #921010;
   --accent-hover: #7a0e0e;
-  --border-color: #e5e7eb;
-  --card-bg: #ffffff;
-  --header-bg: #ffffff;
-  --footer-bg: #f9f9f9;
+  --border-color: #e6e1db;
+  --card-bg: #f5f2ee;
+  --header-bg: #f5f2ee;
+  --footer-bg: #ede8e1;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
