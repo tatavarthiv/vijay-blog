@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "../../context/themeContext";
-import { FiSun, FiMoon, FiMenu, FiX } from "react-icons/fi";
+import { Sunrise, Sunset, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 export default function Header() {
@@ -62,8 +62,11 @@ export default function Header() {
                 title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
                 aria-label="Toggle theme"
               >
-                <FiSun size={20} className="sun-icon" />
-                <FiMoon size={20} className="moon-icon" />
+                {theme === "light" ? (
+                  <Sunrise size={20} />
+                ) : (
+                  <Sunset size={20} />
+                )}
               </button>
             </div>
 
@@ -73,7 +76,7 @@ export default function Header() {
               onClick={toggleMobileMenu}
               aria-label="Toggle mobile menu"
             >
-              <FiMenu size={24} />
+              <Menu size={24} />
             </button>
           </div>
         </div>
@@ -91,7 +94,7 @@ export default function Header() {
               onClick={closeMobileMenu}
               aria-label="Close mobile menu"
             >
-              <FiX size={24} />
+              <X size={24} />
             </button>
 
             <nav className="mobile-nav">
@@ -128,8 +131,11 @@ export default function Header() {
                 title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
                 aria-label="Toggle theme"
               >
-                <FiSun size={20} className="sun-icon" />
-                <FiMoon size={20} className="moon-icon" />
+                {theme === "light" ? (
+                  <Sunrise size={20} />
+                ) : (
+                  <Sunset size={20} />
+                )}
               </button>
             </div>
           </div>

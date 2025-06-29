@@ -304,23 +304,19 @@ img {
 }
 
 .theme-toggle {
-  background-color: var(--text-primary);
+  background: none;
   border: none;
-  color: var(--bg-primary);
-  padding: 0.3rem;
-  border-radius: 50px;
-  width: 48px;
-  height: 24px;
+  color: var(--text-primary);
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.2s;
-  gap: 8px;
 }
 
 .theme-toggle:hover {
-  background-color: var(--text-primary);
+  background: none;
+  color: var(--text-primary);
 }
 
 /* =================================================================
@@ -478,12 +474,12 @@ img {
   display: grid;
   gap: 2rem;
   margin-bottom: 3rem;
+  align-items: end;
 }
 
 .headshot-image {
   width: 100%;
   max-width: 300px;
-  margin: 0 auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -605,6 +601,14 @@ ol {
 
   .mobile-menu-button {
     display: block;
+  }
+
+  .about-intro-grid {
+    align-items: center;
+  }
+
+  .headshot-image {
+    margin: 0 auto;
   }
 
   .contact-links {
