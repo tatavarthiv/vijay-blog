@@ -16,9 +16,4 @@ export interface Project {
   content: string;
   tags?: string[];
   imageUrl?: string;
-  links?: {
-    github?: string;
-    demo?: string;
-    [key: string]: string | undefined;
-  };
 }

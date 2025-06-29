@@ -2,6 +2,24 @@ import fm from "front-matter";
 import type { BlogPost, Project } from "../../types/content";
 import type { ContentService } from "./contentService";
 
+// Define frontmatter interfaces
+interface BlogPostFrontmatter {
+  slug?: string;
+  title?: string;
+  date?: string;
+  excerpt?: string;
+  tags?: string[];
+  coverImage?: string;
+}
+
+interface ProjectFrontmatter {
+  slug?: string;
+  title?: string;
+  description?: string;
+  tags?: string[];
+  imageUrl?: string;
+}
+
 export class MarkdownContentService implements ContentService {
   private posts: BlogPost[] = [];
   private projects: Project[] = [];
@@ -33,26 +51,16 @@ export class MarkdownContentService implements ContentService {
       this.posts = Object.entries(postModules)
         .map(([path, content]) => {
           const { attributes, body } = fm(content as string);
+          const frontmatter = attributes as BlogPostFrontmatter;
 
           return {
-            slug:
-              ((attributes as Record<string, unknown>).slug as string) ||
-              this.extractSlugFromPath(path),
-            title:
-              ((attributes as Record<string, unknown>).title as string) ||
-              "Untitled",
+            slug: frontmatter.slug || this.extractSlugFromPath(path),
+            title: frontmatter.title || "Untitled",
             content: body,
-            date:
-              ((attributes as Record<string, unknown>).date as string) ||
-              new Date().toISOString(),
-            excerpt: (attributes as Record<string, unknown>).excerpt as
-              | string
-              | undefined,
-            tags:
-              ((attributes as Record<string, unknown>).tags as string[]) || [],
-            coverImage: (attributes as Record<string, unknown>).coverImage as
-              | string
-              | undefined,
+            date: frontmatter.date || new Date().toISOString(),
+            excerpt: frontmatter.excerpt,
+            tags: frontmatter.tags || [],
+            coverImage: frontmatter.coverImage,
           };
         })
         .sort(
@@ -62,19 +70,16 @@ export class MarkdownContentService implements ContentService {
       // Parse projects
       this.projects = Object.entries(projectModules).map(([path, content]) => {
         const { attributes, body } = fm(content as string);
+        const frontmatter = attributes as ProjectFrontmatter;
 
         return {
-          id: (attributes as any).slug || this.extractSlugFromPath(path),
-          title: (attributes as any).title || "Untitled Project",
-          slug: (attributes as any).slug || this.extractSlugFromPath(path),
-          description: (attributes as any).description || "",
+          id: frontmatter.slug || this.extractSlugFromPath(path),
+          title: frontmatter.title || "Untitled Project",
+          slug: frontmatter.slug || this.extractSlugFromPath(path),
+          description: frontmatter.description || "",
           content: body,
-          tags: (attributes as any).tags || [],
-          imageUrl: (attributes as any).imageUrl,
-          links: {
-            github: (attributes as any).github,
-            demo: (attributes as any).demo,
-          },
+          tags: frontmatter.tags || [],
+          imageUrl: frontmatter.imageUrl,
         };
       });
 

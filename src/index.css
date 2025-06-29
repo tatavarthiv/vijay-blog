@@ -329,104 +329,145 @@ img {
    CONTENT CARDS - UNIFIED SYSTEM
    ================================================================= */
 
-.content-card {
+/* =================================================================
+   HORIZONTAL CONTENT CARDS
+   ================================================================= */
+
+.horizontal-content-card {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
   transition: transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 1rem;
 }
 
-.content-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+.horizontal-content-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.content-card-link {
+.horizontal-card-link {
   display: block;
   color: inherit;
-  height: 100%;
+  text-decoration: none;
 }
 
-.content-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.content-card-content {
-  padding: 1.5rem;
+.horizontal-card-content {
   display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  align-items: flex-start;
+  padding: 1rem;
+  gap: 1rem;
 }
 
-.content-card-title {
+.notebook-icon {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.horizontal-card-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.horizontal-card-title {
   font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  margin: 0 0 0.25rem 0;
   line-height: 1.3;
+  color: var(--text-primary);
 }
 
-.content-card-excerpt {
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
-  line-height: 1.5;
-  flex-grow: 1;
-}
-
-.post-date {
+.horizontal-card-date {
   font-size: 0.875rem;
   color: var(--text-secondary);
   margin-bottom: 0.5rem;
+  display: block;
 }
 
-.post-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: auto;
-}
-
-.card-links {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.card-links a {
-  background-color: var(--accent-color);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  font-weight: 500;
-  font-size: 0.875rem;
-}
-
-.card-links a:hover {
-  background-color: var(--accent-hover);
-  color: white;
+.horizontal-card-excerpt {
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+  font-size: 0.95rem;
 }
 
 /* =================================================================
-   GRID LAYOUTS - SIMPLIFIED
-   ================================================================= */
+     TAGS
+     ================================================================= */
 
-/* Recent Posts Grid - Mobile First */
-.recent-posts-grid {
-  display: grid;
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+.tag {
+  padding: 0.25rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-block;
 }
 
-/* All Posts & Projects Grid */
-.all-posts-grid,
-.projects-grid {
-  display: grid;
-  gap: 1.5rem;
+/* Tag Colors - Generic Color System */
+.tag-blue {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+.tag-dark-blue {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+.tag-yellow {
+  background-color: #fef3c7;
+  color: #a16207;
+}
+.tag-red {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+.tag-purple {
+  background-color: #f3e8ff;
+  color: #7e22ce;
+}
+.tag-green {
+  background-color: #ecfccb;
+  color: #4d7c0f;
+}
+.tag-light-green {
+  background-color: #ecfdf5;
+  color: #047857;
+}
+.tag-dark-green {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+.tag-orange {
+  background-color: #fed7aa;
+  color: #c2410c;
+}
+.tag-pink {
+  background-color: #fce7f3;
+  color: #be185d;
+}
+.tag-cyan {
+  background-color: #e0f2fe;
+  color: #0e7490;
+}
+.tag-teal {
+  background-color: #e6fffa;
+  color: #0f766e;
+}
+.tag-indigo {
+  background-color: #eef2ff;
+  color: #4338ca;
+}
+
+/* =================================================================
+     CONTENT LISTS
+     ================================================================= */
+
+.posts-list,
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   margin-bottom: 3rem;
 }
 
@@ -551,109 +592,6 @@ ol {
 }
 
 /* =================================================================
-   PAGINATION
-   ================================================================= */
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 3rem;
-  flex-wrap: wrap;
-}
-
-.pagination-item,
-.pagination-prev,
-.pagination-next {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 36px;
-  height: 36px;
-  padding: 0 0.75rem;
-  border-radius: 4px;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition: background-color 0.2s;
-  font-weight: 500;
-}
-
-.pagination-item:hover,
-.pagination-item.active,
-.pagination-prev:hover,
-.pagination-next:hover {
-  background-color: var(--accent-color);
-  color: white;
-}
-
-/* =================================================================
-   TAGS
-   ================================================================= */
-
-.tag {
-  padding: 0.25rem 0.75rem;
-  border-radius: 16px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  display: inline-block;
-}
-
-/* Tag Colors - Generic Color System */
-.tag-blue {
-  background-color: #dbeafe;
-  color: #1e40af;
-}
-.tag-dark-blue {
-  background-color: #dbeafe;
-  color: #1d4ed8;
-}
-.tag-yellow {
-  background-color: #fef3c7;
-  color: #a16207;
-}
-.tag-red {
-  background-color: #fee2e2;
-  color: #b91c1c;
-}
-.tag-purple {
-  background-color: #f3e8ff;
-  color: #7e22ce;
-}
-.tag-green {
-  background-color: #ecfccb;
-  color: #4d7c0f;
-}
-.tag-light-green {
-  background-color: #ecfdf5;
-  color: #047857;
-}
-.tag-dark-green {
-  background-color: #dcfce7;
-  color: #15803d;
-}
-.tag-orange {
-  background-color: #fed7aa;
-  color: #c2410c;
-}
-.tag-pink {
-  background-color: #fce7f3;
-  color: #be185d;
-}
-.tag-cyan {
-  background-color: #e0f2fe;
-  color: #0e7490;
-}
-.tag-teal {
-  background-color: #e6fffa;
-  color: #0f766e;
-}
-.tag-indigo {
-  background-color: #eef2ff;
-  color: #4338ca;
-}
-
-/* =================================================================
    RESPONSIVE DESIGN
    ================================================================= */
 
@@ -667,45 +605,22 @@ ol {
     display: none;
   }
 
-  .recent-posts-grid {
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 2rem;
-  }
-
-  /* Special positioning only for recent posts */
-  .recent-posts-grid .content-card:nth-child(1) {
-    grid-row: 1 / 3;
-  }
-
-  .recent-posts-grid .content-card:nth-child(4) {
-    grid-column: 1 / 3;
-  }
-
-  .all-posts-grid,
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    display: grid;
-    grid-auto-rows: 1fr;
+  .posts-list,
+  .projects-list {
+    gap: 0.75rem;
   }
 
   .about-intro-grid {
     grid-template-columns: 1fr 2fr;
     gap: 3rem;
   }
-
-  /* Featured post gets larger image */
-  .recent-posts-grid .content-card:nth-child(1) img {
-    height: 280px;
-  }
 }
 
 /* Large Desktop (min-width: 1024px) */
 @media (min-width: 1024px) {
-  .all-posts-grid,
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .posts-list,
+  .projects-list {
+    gap: 1rem;
   }
 }
 

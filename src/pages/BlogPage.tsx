@@ -7,11 +7,7 @@ import ContentCard from "../components/common/ContentCard";
 export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
   const contentService = useContentService();
-
-  const postsPerPage = currentPage === 1 ? 6 : 12;
-  const totalPages = Math.ceil((posts.length - 4) / postsPerPage);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -28,14 +24,6 @@ export default function BlogPage() {
     fetchPosts();
   }, [contentService]);
 
-  const recentPosts = posts.slice(0, 4);
-  const remainingPosts = posts.slice(4);
-  const startIndex = (currentPage - 1) * postsPerPage;
-  const paginatedPosts = remainingPosts.slice(
-    startIndex,
-    startIndex + postsPerPage
-  );
-
   return (
     <div className="blog-page">
       <h1 className="main-title">THE BLOG</h1>
@@ -43,77 +31,17 @@ export default function BlogPage() {
       {loading ? (
         <p>Loading posts...</p>
       ) : posts.length > 0 ? (
-        <>
-          <section className="recent-posts-section">
-            <h2 className="section-title">Recent blog posts</h2>
-            <div className="recent-posts-grid">
-              {recentPosts.map((post) => (
-                <ContentCard
-                  key={post.slug}
-                  title={post.title}
-                  date={formatDate(post.date)}
-                  image={post.coverImage}
-                  excerpt={post.excerpt}
-                  tags={post.tags}
-                  slug={post.slug}
-                />
-              ))}
-            </div>
-          </section>
-
-          <section className="all-posts-section">
-            <h2 className="section-title">All blog posts</h2>
-            <div className="all-posts-grid">
-              {paginatedPosts.map((post) => (
-                <ContentCard
-                  key={post.slug}
-                  title={post.title}
-                  date={formatDate(post.date)}
-                  image={post.coverImage}
-                  excerpt={post.excerpt}
-                  tags={post.tags}
-                  slug={post.slug}
-                />
-              ))}
-            </div>
-
-            {totalPages > 1 && (
-              <div className="pagination">
-                {currentPage > 1 && (
-                  <button
-                    className="pagination-prev"
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                  >
-                    Previous
-                  </button>
-                )}
-
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                  (page) => (
-                    <button
-                      key={page}
-                      className={`pagination-item ${
-                        page === currentPage ? "active" : ""
-                      }`}
-                      onClick={() => setCurrentPage(page)}
-                    >
-                      {page}
-                    </button>
-                  )
-                )}
-
-                {currentPage < totalPages && (
-                  <button
-                    className="pagination-next"
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                  >
-                    Next
-                  </button>
-                )}
-              </div>
-            )}
-          </section>
-        </>
+        <div className="posts-list">
+          {posts.map((post) => (
+            <ContentCard
+              key={post.slug}
+              title={post.title}
+              date={formatDate(post.date)}
+              excerpt={post.excerpt}
+              slug={post.slug}
+            />
+          ))}
+        </div>
       ) : (
         <p>No posts found.</p>
       )}

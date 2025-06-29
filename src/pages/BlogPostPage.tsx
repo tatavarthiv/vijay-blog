@@ -45,11 +45,6 @@ export default function BlogPostPage() {
     return null;
   }
 
-  // Get tag CSS class from tag name
-  const getTagClass = (tag: string) => {
-    return `tag tag-${tag.toLowerCase().replace(/\s+/g, "-")}`;
-  };
-
   return (
     <div className="blog-post">
       <h1 className="blog-title">{post.title}</h1>
@@ -57,15 +52,6 @@ export default function BlogPostPage() {
       <header className="post-header">
         <div className="post-meta">
           <div className="post-date">{formatDate(post.date)}</div>
-          {post.tags && post.tags.length > 0 && (
-            <div className="post-tags">
-              {post.tags.map((tag) => (
-                <span key={tag} className={getTagClass(tag)}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
       </header>
 
