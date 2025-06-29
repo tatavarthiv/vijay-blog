@@ -10,7 +10,6 @@
 
   /* Light mode colors */
   --bg-primary: #ffffff;
-  --bg-secondary: #f9f9f9;
   --text-primary: #333333;
   --text-secondary: #555555;
   --accent-color: #921010;
@@ -28,16 +27,15 @@
 
 /* Dark mode theming */
 [data-theme="dark"] {
-  --bg-primary: #121212;
-  --bg-secondary: #1e1e1e;
-  --text-primary: #ffffff;
+  --bg-primary: #292a2d;
+  --text-primary: #a9a9b3;
   --text-secondary: #a0a0a0;
   --accent-color: #bb2626;
   --accent-hover: #d63333;
-  --border-color: #2e2e2e;
+  --border-color: #3f3f3f;
   --card-bg: #1e1e1e;
-  --header-bg: #0f0f1a;
-  --footer-bg: #1a1a1a;
+  --header-bg: #252627;
+  --footer-bg: #252627;
 }
 
 /* =================================================================
@@ -519,7 +517,7 @@ ol {
 }
 
 .blog-post .post-content pre {
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-primary);
   padding: 1rem;
   border-radius: 8px;
   overflow-x: auto;
@@ -575,7 +573,7 @@ ol {
   height: 36px;
   padding: 0 0.75rem;
   border-radius: 4px;
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 0.2s;
   font-weight: 500;
@@ -601,80 +599,56 @@ ol {
   display: inline-block;
 }
 
-/* Tag Colors - Simplified */
-.tag-react {
+/* Tag Colors - Generic Color System */
+.tag-blue {
   background-color: #dbeafe;
   color: #1e40af;
 }
-.tag-javascript {
+.tag-dark-blue {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+.tag-yellow {
   background-color: #fef3c7;
   color: #a16207;
 }
-.tag-typescript {
-  background-color: #dbeafe;
-  color: #1d4ed8;
-}
-.tag-frontend {
+.tag-red {
   background-color: #fee2e2;
   color: #b91c1c;
 }
-.tag-design {
+.tag-purple {
   background-color: #f3e8ff;
   color: #7e22ce;
 }
-.tag-research {
-  background-color: #dbeafe;
-  color: #1d4ed8;
-}
-.tag-interface {
+.tag-green {
   background-color: #ecfccb;
   color: #4d7c0f;
 }
-.tag-leadership {
-  background-color: #fed7aa;
-  color: #c2410c;
-}
-.tag-management {
-  background-color: #fce7f3;
-  color: #be185d;
-}
-.tag-presentation {
-  background-color: #f3e8ff;
-  color: #7e22ce;
-}
-.tag-product {
-  background-color: #e0f2fe;
-  color: #0e7490;
-}
-.tag-frameworks {
+.tag-light-green {
   background-color: #ecfdf5;
   color: #047857;
 }
-.tag-software-development {
+.tag-dark-green {
   background-color: #dcfce7;
   color: #15803d;
 }
-.tag-tools {
+.tag-orange {
   background-color: #fed7aa;
   color: #c2410c;
 }
-.tag-saas {
-  background-color: #eef2ff;
-  color: #4338ca;
-}
-.tag-podcasts {
+.tag-pink {
   background-color: #fce7f3;
   color: #be185d;
 }
-.tag-customer-success {
+.tag-cyan {
+  background-color: #e0f2fe;
+  color: #0e7490;
+}
+.tag-teal {
   background-color: #e6fffa;
   color: #0f766e;
 }
-.tag-best-practices {
-  background-color: #e6fffa;
-  color: #0f766e;
-}
-.tag-collaboration {
+.tag-indigo {
   background-color: #eef2ff;
   color: #4338ca;
 }

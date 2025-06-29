@@ -1,15 +1,14 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useMemo } from "react";
 import type { ReactNode } from "react";
 import type { ContentService } from "../services/content/contentService";
-import { SupabaseContentService } from "../services/content/supabaseContentService";
+import { MarkdownContentService } from "../services/content/markdownContentService";
 
 // Create a context with a null default value
 const ContentServiceContext = createContext<ContentService | null>(null);
 
 // Provider component that will wrap the application
 export function ContentServiceProvider({ children }: { children: ReactNode }) {
-  // Create an instance of the Supabase-based content service
-  const contentService = new SupabaseContentService();
+  const contentService = useMemo(() => new MarkdownContentService(), []);
 
   return (
     <ContentServiceContext.Provider value={contentService}>

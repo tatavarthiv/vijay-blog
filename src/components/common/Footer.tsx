@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer-content">
           <div className="footer-info">
-            <p>© {currentYear} Vijay Tatavarthi. All rights reserved.</p>
+            <p>© {currentYear} Vijay Tatavarthi</p>
           </div>
 
           <div className="footer-links">
@@ -27,11 +27,6 @@ export default function Footer() {
                   rel="noopener noreferrer"
                 >
                   LinkedIn
-                </a>
-              </li>
-              <li>
-                <a href="/rss.xml" target="_blank" rel="noopener noreferrer">
-                  RSS Feed
                 </a>
               </li>
             </ul>
