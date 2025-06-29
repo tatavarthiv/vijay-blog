@@ -17,7 +17,6 @@
   --border-color: #e6e1db;
   --card-bg: #f5f2ee;
   --header-bg: #f5f2ee;
-  --footer-bg: #ede8e1;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -35,7 +34,6 @@
   --border-color: #3f3f3f;
   --card-bg: #1e1e1e;
   --header-bg: #252627;
-  --footer-bg: #252627;
 }
 
 /* =================================================================
@@ -566,32 +564,6 @@ ol {
 }
 
 /* =================================================================
-   FOOTER
-   ================================================================= */
-
-.site-footer {
-  background-color: var(--footer-bg);
-  border-top: 1px solid var(--border-color);
-  padding: 2rem 0;
-  margin-top: auto;
-}
-
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.footer-links ul {
-  display: flex;
-  list-style: none;
-  gap: 1rem;
-  font-weight: 500;
-}
-
-/* =================================================================
    RESPONSIVE DESIGN
    ================================================================= */
 
@@ -633,11 +605,6 @@ ol {
 
   .mobile-menu-button {
     display: block;
-  }
-
-  .footer-content {
-    flex-direction: column;
-    text-align: center;
   }
 
   .contact-links {
