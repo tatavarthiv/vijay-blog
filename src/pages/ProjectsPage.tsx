@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import ContentCard from "../components/common/ContentCard";
 import { useContentService } from "../context/contentServiceContext";
 import type { Project } from "../types/content";
@@ -23,26 +24,78 @@ export default function ProjectsPage() {
     fetchProjects();
   }, [contentService]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring" as const,
+        stiffness: 100,
+        damping: 12,
+      },
+    },
+  };
+
   return (
     <div className="projects-page">
-      <h1 className="main-title">PROJECTS</h1>
+      <motion.h1
+        className="main-title"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.6,
+          ease: "easeOut",
+        }}
+      >
+        PROJECTS
+      </motion.h1>
 
       {loading ? (
-        <p>Loading projects...</p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          Loading projects...
+        </motion.p>
       ) : projects.length > 0 ? (
-        <div className="projects-list">
-          {projects.map((project) => (
-            <ContentCard
-              key={project.id}
-              title={project.title}
-              excerpt={project.description}
-              slug={project.slug}
-              linkPrefix="/projects/"
-            />
+        <motion.div
+          className="projects-list"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {projects.map((project, index) => (
+            <motion.div key={project.id} variants={itemVariants} custom={index}>
+              <ContentCard
+                title={project.title}
+                excerpt={project.description}
+                slug={project.slug}
+                linkPrefix="/projects/"
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       ) : (
-        <p>No projects found.</p>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          No projects found.
+        </motion.p>
       )}
     </div>
   );

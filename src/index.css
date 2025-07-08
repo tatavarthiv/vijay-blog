@@ -251,7 +251,7 @@ img {
   position: relative;
   padding: 0.5rem 1rem;
   border-radius: 12px;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
 }
 
@@ -286,7 +286,7 @@ img {
   color: var(--text-primary);
   padding: 0.5rem;
   border-radius: 10px;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -314,7 +314,7 @@ img {
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
   font-size: 0.9rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
@@ -346,7 +346,7 @@ img {
   padding: 0.5rem;
   cursor: pointer;
   border-radius: 10px;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
 }
 
 .mobile-menu-button:hover {
@@ -397,7 +397,7 @@ img {
   margin-bottom: 2rem;
   cursor: pointer;
   border-radius: 10px;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
 }
 
 .mobile-menu-close:hover {
@@ -424,7 +424,7 @@ img {
   display: flex;
   align-items: center;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
 }
 
 .mobile-nav-link:hover {
@@ -535,60 +535,6 @@ img {
   display: inline-block;
 }
 
-/* Tag Colors - Generic Color System */
-.tag-blue {
-  background-color: #dbeafe;
-  color: #1e40af;
-}
-.tag-dark-blue {
-  background-color: #dbeafe;
-  color: #1d4ed8;
-}
-.tag-yellow {
-  background-color: #fef3c7;
-  color: #a16207;
-}
-.tag-red {
-  background-color: #fee2e2;
-  color: #b91c1c;
-}
-.tag-purple {
-  background-color: #f3e8ff;
-  color: #7e22ce;
-}
-.tag-green {
-  background-color: #ecfccb;
-  color: #4d7c0f;
-}
-.tag-light-green {
-  background-color: #ecfdf5;
-  color: #047857;
-}
-.tag-dark-green {
-  background-color: #dcfce7;
-  color: #15803d;
-}
-.tag-orange {
-  background-color: #fed7aa;
-  color: #c2410c;
-}
-.tag-pink {
-  background-color: #fce7f3;
-  color: #be185d;
-}
-.tag-cyan {
-  background-color: #e0f2fe;
-  color: #0e7490;
-}
-.tag-teal {
-  background-color: #e6fffa;
-  color: #0f766e;
-}
-.tag-indigo {
-  background-color: #eef2ff;
-  color: #4338ca;
-}
-
 /* =================================================================
      CONTENT LISTS
      ================================================================= */
@@ -604,45 +550,6 @@ img {
 /* =================================================================
    PAGE SPECIFIC STYLES
    ================================================================= */
-
-/* About Page */
-.about-intro-grid {
-  display: grid;
-  gap: 2rem;
-  margin-bottom: 3rem;
-  align-items: end;
-}
-
-.headshot-image {
-  width: 100%;
-  max-width: 300px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.about-content h2,
-.skills-section h2,
-.experience-section h2,
-.education-section h2,
-.contact-section h2 {
-  font-size: 1.75rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.skills-section,
-.experience-section,
-.education-section,
-.contact-section {
-  margin-top: 2rem;
-}
-
-.contact-links {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
 
 /* Blog Post Page Layout */
 .post-layout {
@@ -812,11 +719,6 @@ ol {
     gap: 0.75rem;
   }
 
-  .about-intro-grid {
-    grid-template-columns: 1fr 2fr;
-    gap: 3rem;
-  }
-
   .post-layout {
     padding: 0 1rem;
   }
@@ -879,18 +781,6 @@ ol {
     flex: none;
   }
 
-  .about-intro-grid {
-    align-items: center;
-  }
-
-  .headshot-image {
-    margin: 0 auto;
-  }
-
-  .contact-links {
-    justify-content: center;
-  }
-
   .post-layout {
     grid-template-columns: 1fr;
     gap: 0;
@@ -912,6 +802,78 @@ ol {
 /* =================================================================
    HOME PAGE STYLES
    ================================================================= */
+
+/* Glass Containers for About Page */
+.glass-container {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-container:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.glass-container h2 {
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.glass-container h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+/* Glass Tags */
+.glass-tag {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  display: inline-block;
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.glass-tag:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Special styling for about intro grid */
+.glass-intro-grid {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .glass-intro-grid {
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+  }
+}
+
+.glass-intro-grid .headshot-image {
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
 
 .home-page {
   height: 100vh;
@@ -1001,7 +963,7 @@ ol {
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
 }
 
@@ -1021,7 +983,7 @@ ol {
   border-radius: 12px;
   font-weight: 500;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -1030,4 +992,15 @@ ol {
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   color: var(--text-primary);
+}
+
+/* Prevent framer-motion initial render flash */
+.glass-container {
+  will-change: transform, opacity;
+}
+
+/* Hide containers by default until framer-motion takes control */
+.about-page .glass-container:not([data-projection-id]) {
+  opacity: 0;
+  transform: translateY(20px);
 }
