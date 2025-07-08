@@ -36,7 +36,7 @@ export default function Header() {
           {/* Logo */}
           <div className="logo">
             <Link to="/" className="name-link">
-              VIJAY
+              Vijay Tatavarthi
             </Link>
           </div>
 

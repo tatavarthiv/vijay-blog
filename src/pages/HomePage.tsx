@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export default function HomePage() {
   const [typedText, setTypedText] = useState("");
   const [showGlassBox, setShowGlassBox] = useState(false);
-  const fullText = "Hello! Meet Vijay";
+  const fullText = "Hello! Meet Vijay.";
 
   useEffect(() => {
     let currentIndex = 0;
@@ -37,6 +37,7 @@ export default function HomePage() {
           transition={{ duration: 0.5 }}
         >
           {typedText}
+          <span className="typing-cursor"></span>
         </motion.h1>
       </div>
 

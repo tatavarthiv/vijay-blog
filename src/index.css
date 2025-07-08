@@ -47,38 +47,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Glass effect utilities - Apple inspired */
-.glass {
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.glass-strong {
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-
-/* Animation for floating elements */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
 /* =================================================================
    GLOBAL STYLES
    ================================================================= */
@@ -176,14 +144,6 @@ img {
 .main-content {
   flex: 1;
   padding: 1rem 0 4rem;
-}
-
-/* Section Headers */
-.section-title {
-  font-size: clamp(1rem, 4vw, 1.5rem);
-  font-weight: 600;
-  position: relative;
-  padding-bottom: 0.2rem;
 }
 
 /* =================================================================
@@ -379,6 +339,17 @@ img {
   }
 }
 
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
 .mobile-menu-close {
   align-self: flex-end;
   background: none;
@@ -512,18 +483,6 @@ img {
   margin: 0;
   line-height: 1.4;
   font-size: 0.95rem;
-}
-
-/* =================================================================
-     TAGS
-     ================================================================= */
-
-.tag {
-  padding: 0.25rem 0.75rem;
-  border-radius: 16px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  display: inline-block;
 }
 
 /* =================================================================
@@ -898,6 +857,16 @@ ol {
   margin-bottom: 0;
   letter-spacing: -0.02em;
   line-height: 1.1;
+}
+
+.typing-cursor {
+  display: inline-block;
+  background-color: var(--text-primary);
+  width: 8px;
+  height: 1em;
+  margin-left: 20px;
+  animation: blink 1s infinite;
+  vertical-align: sub;
 }
 
 /* Glass Info Box */
