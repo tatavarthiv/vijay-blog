@@ -28,18 +28,6 @@ export default function AboutPage() {
 
   return (
     <div className="about-page container">
-      <motion.h1
-        className="main-title"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.6,
-          ease: "easeOut",
-        }}
-      >
-        VIJAY TATAVARTHI
-      </motion.h1>
-
       <motion.div
         variants={containerVariants}
         initial="hidden"

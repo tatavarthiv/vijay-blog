@@ -178,15 +178,6 @@ img {
   padding: 1rem 0 4rem;
 }
 
-/* Main Title */
-.main-title {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  text-align: center;
-  font-weight: 700;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
 /* Section Headers */
 .section-title {
   font-size: clamp(1rem, 4vw, 1.5rem);
@@ -761,7 +752,8 @@ ol {
 @media (max-width: 767px) {
   .main-nav,
   .social-icons,
-  .desktop-theme-toggle {
+  .desktop-theme-toggle,
+  .desktop-resume-button {
     display: none;
   }
 

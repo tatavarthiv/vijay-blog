@@ -51,18 +51,6 @@ export default function BlogPage() {
 
   return (
     <div className="blog-page">
-      <motion.h1
-        className="main-title"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.6,
-          ease: "easeOut",
-        }}
-      >
-        THE BLOG
-      </motion.h1>
-
       {loading ? (
         <motion.p
           initial={{ opacity: 0 }}

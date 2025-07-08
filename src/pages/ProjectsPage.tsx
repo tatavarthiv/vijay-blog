@@ -50,18 +50,6 @@ export default function ProjectsPage() {
 
   return (
     <div className="projects-page">
-      <motion.h1
-        className="main-title"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.6,
-          ease: "easeOut",
-        }}
-      >
-        PROJECTS
-      </motion.h1>
-
       {loading ? (
         <motion.p
           initial={{ opacity: 0 }}
